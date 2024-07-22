@@ -1,0 +1,326 @@
+{
+    "fixtures": [
+        {
+            "name": "customer_daniel",
+            "path": "/v1/customers",
+            "method": "post",
+            "params": {
+                "test_clock": "${.env:STRIPE_TEST_CLOCK}",
+                "name": "Daniel Smith",
+                "email": "daniel.smith@example.com"
+            }
+        },
+        {
+            "name": "payment_method_daniel",
+            "path": "/v1/payment_methods/pm_card_visa/attach",
+            "method": "post",
+            "params": {
+                "customer": "${customer_daniel:id}"
+            }
+        },
+        {
+            "name": "customer_mayra",
+            "path": "/v1/customers",
+            "method": "post",
+            "params": {
+                "test_clock": "${.env:STRIPE_TEST_CLOCK}",
+                "name": "Mayra Rodriguez",
+                "email": "mayra.rodriguez@example.com"
+            }
+        },
+        {
+            "name": "payment_method_mayra",
+            "path": "/v1/payment_methods/pm_card_visa_debit/attach",
+            "method": "post",
+            "params": {
+                "customer": "${customer_mayra:id}"
+            }
+        },
+        {
+            "name": "customer_santiago",
+            "path": "/v1/customers",
+            "method": "post",
+            "params": {
+                "test_clock": "${.env:STRIPE_TEST_CLOCK}",
+                "name": "Santiago Fernandez",
+                "email": "santiago.fernandez@example.com"
+            }
+        },
+        {
+            "name": "payment_method_santiago",
+            "path": "/v1/payment_methods/pm_card_amex/attach",
+            "method": "post",
+            "params": {
+                "customer": "${customer_santiago:id}"
+            }
+        },
+        {
+            "name": "coupon_10_off",
+            "path": "/v1/coupons",
+            "method": "post",
+            "params": {
+                "amount_off": 1000,
+                "currency": "usd",
+                "duration": "once",
+                "name": "10 Dollar Off",
+                "currency_options": {
+                    "gbp": {
+                        "amount_off": 800
+                    },
+                    "eur": {
+                        "amount_off": 900
+                    }
+                }
+            }
+        },
+        {
+            "name": "coupon_5_off_3_months",
+            "path": "/v1/coupons",
+            "method": "post",
+            "params": {
+                "amount_off": 500,
+                "currency": "usd",
+                "duration": "repeating",
+                "duration_in_months": 3,
+                "name": "5 Dollar Off for 3 Months",
+                "currency_options": {
+                    "gbp": {
+                        "amount_off": 400
+                    },
+                    "eur": {
+                        "amount_off": 450
+                    }
+                }
+            }
+        },
+        {
+            "name": "crossclip",
+            "path": "/v1/products",
+            "method": "post",
+            "params": {
+                "name": "Crossclip"
+            }
+        },
+        {
+            "name": "talkstudio",
+            "path": "/v1/products",
+            "method": "post",
+            "params": {
+                "name": "Talk Studio"
+            }
+        },
+        {
+            "name": "videoeditor",
+            "path": "/v1/products",
+            "method": "post",
+            "params": {
+                "name": "Video Editor"
+            }
+        },
+        {
+            "name": "price_monthly_crossclip",
+            "path": "/v1/prices",
+            "method": "post",
+            "params": {
+                "unit_amount": 2000,
+                "currency": "usd",
+                "recurring": {
+                    "interval": "month"
+                },
+                "product": "${crossclip:id}",
+                "currency_options": {
+                    "gbp": {
+                        "unit_amount": 1500
+                    },
+                    "eur": {
+                        "unit_amount": 1800
+                    }
+                }
+            }
+        },
+        {
+            "name": "price_6months_talkstudio",
+            "path": "/v1/prices",
+            "method": "post",
+            "params": {
+                "unit_amount": 1800,
+                "currency": "usd",
+                "recurring": {
+                    "interval": "month",
+                    "interval_count": 6
+                },
+                "product": "${talkstudio:id}",
+                "currency_options": {
+                    "gbp": {
+                        "unit_amount": 1350
+                    },
+                    "eur": {
+                        "unit_amount": 1620
+                    }
+                }
+            }
+        },
+        {
+            "name": "price_3months_videoeditor",
+            "path": "/v1/prices",
+            "method": "post",
+            "params": {
+                "unit_amount": 1600,
+                "currency": "usd",
+                "recurring": {
+                    "interval": "month",
+                    "interval_count": 3
+                },
+                "product": "${videoeditor:id}",
+                "currency_options": {
+                    "gbp": {
+                        "unit_amount": 1200
+                    },
+                    "eur": {
+                        "unit_amount": 1440
+                    }
+                }
+            }
+        },
+        {
+            "name": "subscription_daniel_crossclip",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_daniel:id}",
+                "items": [
+                    {
+                        "price": "${price_monthly_crossclip:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_daniel:id}",
+                "trial_period_days": 30,
+                "coupon": "${coupon_10_off:id}"
+            }
+        },
+        {
+            "name": "subscription_daniel_talkstudio",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_daniel:id}",
+                "items": [
+                    {
+                        "price": "${price_6months_talkstudio:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_daniel:id}",
+                "cancel_at_period_end": true
+            }
+        },
+        {
+            "name": "subscription_daniel_videoeditor",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_daniel:id}",
+                "items": [
+                    {
+                        "price": "${price_3months_videoeditor:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_daniel:id}",
+                "trial_period_days": 60
+            }
+        },
+        {
+            "name": "subscription_mayra_crossclip",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_mayra:id}",
+                "items": [
+                    {
+                        "price": "${price_monthly_crossclip:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_mayra:id}",
+                "coupon": "${coupon_5_off_3_months:id}",
+                "currency": "eur"
+            }
+        },
+        {
+            "name": "subscription_mayra_talkstudio",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_mayra:id}",
+                "items": [
+                    {
+                        "price": "${price_6months_talkstudio:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_mayra:id}",
+                "trial_period_days": 90,
+                "currency": "eur"
+            }
+        },
+        {
+            "name": "subscription_mayra_videoeditor",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_mayra:id}",
+                "items": [
+                    {
+                        "price": "${price_3months_videoeditor:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_mayra:id}",
+                "cancel_at_period_end": true,
+                "currency": "eur"
+            }
+        },
+        {
+            "name": "subscription_santiago_crossclip",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_santiago:id}",
+                "items": [
+                    {
+                        "price": "${price_monthly_crossclip:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_santiago:id}",
+                "cancel_at_period_end": true,
+                "currency": "gbp"
+            }
+        },
+        {
+            "name": "subscription_santiago_talkstudio",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_santiago:id}",
+                "items": [
+                    {
+                        "price": "${price_6months_talkstudio:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_santiago:id}",
+                "currency": "gbp"
+            }
+        },
+        {
+            "name": "subscription_santiago_videoeditor",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_santiago:id}",
+                "items": [
+                    {
+                        "price": "${price_3months_videoeditor:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_santiago:id}",
+                "currency": "gbp"
+            }
+        }
+    ]
+}
