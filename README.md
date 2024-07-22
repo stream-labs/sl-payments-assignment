@@ -64,7 +64,7 @@ Stripe Concepts:
 - Create a new stripe account
 - Use the stripe CLI to login to newly created account
 - Create a [stripe test clock](https://dashboard.stripe.com/test/billing/subscriptions/test-clocks) to simulate time
-    - This can be done through either the API or dashboard. You should get a test clock id that you'll add to your .env file (needed to run the fixture)
+    - This can be done through API. You should get a test clock id that you'll add to your .env file (needed to run the fixture)
       - Example: `STRIPE_TEST_CLOCK=clock_1PesQ4CAFqbekblQs2oyiGaq`
 - Once you've added your test clock you can use stripe cli to run your fixture. Fixture is located at fixtures/seed.json
   - The fixture will populate customer and subscription data into your stripe account
