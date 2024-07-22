@@ -143,7 +143,7 @@
             "path": "/v1/prices",
             "method": "post",
             "params": {
-                "unit_amount": 1800,
+                "unit_amount": 9000,
                 "currency": "usd",
                 "recurring": {
                     "interval": "month",
@@ -152,10 +152,10 @@
                 "product": "${talkstudio:id}",
                 "currency_options": {
                     "gbp": {
-                        "unit_amount": 1350
+                        "unit_amount": 6950
                     },
                     "eur": {
-                        "unit_amount": 1620
+                        "unit_amount": 8400
                     }
                 }
             }
@@ -165,7 +165,7 @@
             "path": "/v1/prices",
             "method": "post",
             "params": {
-                "unit_amount": 1600,
+                "unit_amount": 5500,
                 "currency": "usd",
                 "recurring": {
                     "interval": "month",
@@ -174,10 +174,10 @@
                 "product": "${videoeditor:id}",
                 "currency_options": {
                     "gbp": {
-                        "unit_amount": 1200
+                        "unit_amount": 4200
                     },
                     "eur": {
-                        "unit_amount": 1440
+                        "unit_amount": 5000
                     }
                 }
             }
