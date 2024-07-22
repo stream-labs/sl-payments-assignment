@@ -8,10 +8,10 @@ You've been tasked with creating an analysis for how subscriptions behave over t
 
 You will be assessing the estimated revenue for 3 different subscription products.
 
-The result of your work should yield 3 tables, one for each product, that lists out a subscription per row.
-The columns should be the following: customer email, product name, ...months 1-12, life time value for subscription. The final row should contain usd totals for each month.
-
-**You can display these tables via HTML or command line output.**
+## Requirements
+- Return a table for each product that lists out a subscription per row.
+- The columns should be the following: customer email, product name, ...months 1-12, life time value for subscription. The final row should contain usd totals for each month.
+- **You can display these tables via HTML or command line output.**
 
 | Customer Email       | Product Name | {endOfMonth date} 1 | {endOfMonth} 2 | {endOfMonth} 3 | {endOfMonth} 4 | {endOfMonth} 5 | {endOfMonth} 6 | {endOfMonth} 7 | {endOfMonth} 8 | {endOfMonth} 9 | {endOfMonth} 10 | {endOfMonth} 11 | {endOfMonth} 12 | Life Time Value |
 |----------------------|--------------|---------------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|-----------------|-----------------|-----------------|-----------------|
@@ -32,8 +32,6 @@ The columns should be the following: customer email, product name, ...months 1-1
 | john.doe@example.com | Product C    | $10            | $10            | $10            | $10            | $10            | $10            | $10            | $10            | $0             | $0              | $0              | $0              | $80             |
 | jane.smith@example.com | Product C    | $15            | $15            | $15            | $15            | $15            | $15            | $15            | $15            | $15            | $15             | $15             | $15             | $180            |
 | **Totals**           |              | **$25**        | **$25**        | **$25**        | **$25**        | **$25**        | **$25**        | **$25**        | **$25**        | **$15**        | **$15**         | **$15**         | **$15**         | **$260**        |
-
-
 
 
 ## Guiding Philosophy
@@ -73,24 +71,15 @@ Stripe Concepts:
 
 > **Warning:** You'll likely have to create multiple test clocks and seed data multiple times. This is normal and expected. While all data will be constrained by each test clock you can delete all stripe data by going to the [Stripe Developers](https://dashboard.stripe.com/test/developers) page and selecting "Delete all test data" option at the bottom of the page.
 
-## Implementing and Packaging Your Solution:
 
-You may implement your analysis however you wish but keep in mind
-we may ask you to explain or extend your code. Please write automated tests
-and include them with your submission.
-
-## Deliverables
-This is a take-home assignment and please do not spend more than 4 hours on the project, these 4 hours do not include the time it takes you to setup your dev environment.
-You can submit a partial project if it’s not completed by the end of the 4 hour period.
+## Documentation & Thought Process
 The code is to be published on a public github repository for our team to access. Make sure that we can see your progress in your commit history, a single commit is not enough.
 
-In order to demo the application you can either submit a short video showing us the entire flow and the results or you can include instructions for building and running your program.
+**Please include a README.md file that includes the following information:**
 
-In addition to your source code and tests please also include a README that
-explains:
-
+- How long did it take you to complete the assignment?
+- What about this assignment did you find most challenging?
+- What about this assignment did you find unclear?
 - A screenshot of your final output
+- Instructions on how to run your code and any tests
 - An overview of your design decisions
-- How to install any required dependencies (runtimes, frameworks, etc)
-- How to build, package or compile your code if applicable
-- How to run your code and tests
