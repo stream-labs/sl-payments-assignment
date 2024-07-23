@@ -36,7 +36,7 @@ You will be assessing the estimated revenue for 3 different subscription product
 
 ## Guiding Philosophy
 
-We want to see a well-modeled, working solution that shows that you can write code and read directions.
+The assignment should take about 4 hours to complete. We want to see a well-modeled, working solution that shows that you can write code and read directions.
 
 We are NOT
 
@@ -64,8 +64,6 @@ Stripe Concepts:
 - Create a new stripe account
 - Use the stripe CLI to login to newly created account
 - Create a [stripe test clock](https://dashboard.stripe.com/test/billing/subscriptions/test-clocks) to simulate time
-    - This can be done through API. You should get a test clock id that you'll add to your .env file (needed to run the fixture)
-      - Example: `STRIPE_TEST_CLOCK=clock_1PesQ4CAFqbekblQs2oyiGaq`
 - Once you've added your test clock you can use stripe cli to run your fixture. Fixture is located at fixtures/seed.json
   - The fixture will populate customer and subscription data into your stripe account
 
@@ -77,9 +75,5 @@ The code is to be published on a public github repository for our team to access
 
 **Please include a README.md file that includes the following information:**
 
-- How long did it take you to complete the assignment?
-- What about this assignment did you find most challenging?
-- What about this assignment did you find unclear?
 - A screenshot of your final output
 - Instructions on how to run your code and any tests
-- An overview of your design decisions
