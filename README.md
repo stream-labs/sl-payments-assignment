@@ -60,15 +60,18 @@ Stripe Concepts:
 - [Stripe Test Clocks and Simulations](https://docs.stripe.com/billing/testing/test-clocks/api-advanced-usage)
 - [Stripe API - Customers, Subscriptions, Products, Prices, and Coupons](https://docs.stripe.com/api?lang=php)
 
-### Beginning
+## Getting Started
+- We've included a docker setup for you to get started though it's not required.
+  - make up
+  - make composer-install
+  - make stripe-login
 - Create a new stripe account
-- Use the stripe CLI to login to newly created account
+- Use the stripe CLI to login and authorize to newly created account
 - Create a [stripe test clock](https://dashboard.stripe.com/test/billing/subscriptions/test-clocks) to simulate time
 - Once you've added your test clock you can use stripe cli to run your fixture. Fixture is located at fixtures/seed.json
   - The fixture will populate customer and subscription data into your stripe account
 
 > **Warning:** You'll likely have to create multiple test clocks and seed data multiple times. This is normal and expected. While all data will be constrained by each test clock you can delete all stripe data by going to the [Stripe Developers](https://dashboard.stripe.com/test/developers) page and selecting "Delete all test data" option at the bottom of the page.
-
 
 ## Documentation & Thought Process
 The code is to be published on a public github repository for our team to access. Make sure that we can see your progress in your commit history, a single commit is not enough.
