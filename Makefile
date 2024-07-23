@@ -3,7 +3,7 @@
 DOCKER_COMPOSE = docker compose
 
 build:
-	@$(DOCKER_COMPOSE) build
+	@$(DOCKER_COMPOSE) build && make composer-install
 
 up:
 	@$(DOCKER_COMPOSE) up -d
@@ -12,7 +12,7 @@ down:
 	@$(DOCKER_COMPOSE) down
 
 restart:
-	@$(DOCKER_COMPOSE) down && @$(DOCKER_COMPOSE) up -d
+	make down && make up
 
 composer-install:
 	@$(DOCKER_COMPOSE) run --rm app composer install
