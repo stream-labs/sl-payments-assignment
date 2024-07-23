@@ -1,25 +1,27 @@
 .PHONY: build up down restart composer-install artisan stripe-login bash
 
+DOCKER_COMPOSE = docker compose
+
 build:
-	docker-compose build
+	@$(DOCKER_COMPOSE) build
 
 up:
-	docker-compose up -d
+	@$(DOCKER_COMPOSE) up -d
 
 down:
-	docker-compose down
+	@$(DOCKER_COMPOSE) down
 
 restart:
-	docker-compose down && docker-compose up -d
+	@$(DOCKER_COMPOSE) down && @$(DOCKER_COMPOSE) up -d
 
 composer-install:
-	docker-compose run --rm app composer install
+	@$(DOCKER_COMPOSE) run --rm app composer install
 
 artisan:
-	docker-compose run --rm app php artisan
+	@$(DOCKER_COMPOSE) run --rm app php artisan
 
 stripe-login:
-	docker-compose run --rm app stripe login
+	@$(DOCKER_COMPOSE) run --rm app stripe login
 
 bash:
-	docker-compose exec app /bin/bash
+	@$(DOCKER_COMPOSE) exec app /bin/bash
