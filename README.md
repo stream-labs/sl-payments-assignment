@@ -6,7 +6,7 @@ Thank you for choosing to invest your time in this assignment.  We recognize itâ
 
 You've been tasked with creating an analysis for how subscriptions behave over the course of a year and the expected revenue from those subscriptions. 
 
-You will be assessing the estimated revenue for 3 different subscription products.
+You will be assessing the estimated revenue for 3 different subscription products. You've been provided seed data for 3 different products, 2 existing customers and their subscriptions. 
 
 ## Requirements
 - Return a table for each product that lists out a subscription per row.
@@ -77,7 +77,7 @@ Stripe Concepts:
 - Use the stripe CLI to login and authorize to newly created account
 - Create a [stripe test clock](https://dashboard.stripe.com/test/billing/subscriptions/test-clocks) to simulate time
 - Once you've added your test clock you can use stripe cli to run your fixture. Fixture is located at fixtures/seed.json
-  - The fixture will populate customer and subscription data into your stripe account
+  - The fixture will populate data into your stripe account
 
 > **Warning:** You'll likely have to create multiple test clocks and seed data multiple times. This is normal and expected. While all data will be constrained by each test clock you can delete all stripe data by going to the [Stripe Developers](https://dashboard.stripe.com/test/developers) page and selecting "Delete all test data" option at the bottom of the page.
 
