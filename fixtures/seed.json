@@ -1,39 +1,21 @@
 {
     "fixtures": [
         {
-            "name": "customer_daniel",
-            "path": "/v1/customers",
-            "method": "post",
-            "params": {
-                "test_clock": "${.env:STRIPE_TEST_CLOCK}",
-                "name": "Daniel Smith",
-                "email": "daniel.smith@example.com"
-            }
-        },
-        {
-            "name": "payment_method_daniel",
-            "path": "/v1/payment_methods/pm_card_visa/attach",
-            "method": "post",
-            "params": {
-                "customer": "${customer_daniel:id}"
-            }
-        },
-        {
-            "name": "customer_mayra",
+            "name": "customer_diego",
             "path": "/v1/customers",
             "method": "post",
             "params": {
                 "test_clock": "${.env:STRIPE_TEST_CLOCK}",
                 "name": "Mayra Rodriguez",
-                "email": "mayra.rodriguez@example.com"
+                "email": "diego.rodriguez@example.com"
             }
         },
         {
-            "name": "payment_method_mayra",
+            "name": "payment_method_diego",
             "path": "/v1/payment_methods/pm_card_visa_debit/attach",
             "method": "post",
             "params": {
-                "customer": "${customer_mayra:id}"
+                "customer": "${customer_diego:id}"
             }
         },
         {
@@ -118,10 +100,12 @@
             }
         },
         {
-            "name": "price_monthly_crossclip",
+            "name": "price_monthly_crossclip_basic",
             "path": "/v1/prices",
             "method": "post",
             "params": {
+                "lookup_key": "monthly_crossclip_basic",
+                "transfer_lookup_key": true,
                 "unit_amount": 2000,
                 "currency": "usd",
                 "recurring": {
@@ -134,6 +118,29 @@
                     },
                     "eur": {
                         "unit_amount": 1800
+                    }
+                }
+            }
+        },
+        {
+            "name": "price_monthly_crossclip_premium",
+            "path": "/v1/prices",
+            "method": "post",
+            "params": {
+                "lookup_key": "monthly_crossclip_premium",
+                "transfer_lookup_key": true,
+                "unit_amount": 4500,
+                "currency": "usd",
+                "recurring": {
+                    "interval": "month"
+                },
+                "product": "${crossclip:id}",
+                "currency_options": {
+                    "gbp": {
+                        "unit_amount": 3450
+                    },
+                    "eur": {
+                        "unit_amount": 4150
                     }
                 }
             }
@@ -183,95 +190,49 @@
             }
         },
         {
-            "name": "subscription_daniel_crossclip",
+            "name": "subscription_diego_crossclip",
             "path": "/v1/subscriptions",
             "method": "post",
             "params": {
-                "customer": "${customer_daniel:id}",
+                "customer": "${customer_diego:id}",
                 "items": [
                     {
-                        "price": "${price_monthly_crossclip:id}"
+                        "price": "${price_monthly_crossclip_basic:id}"
                     }
                 ],
-                "default_payment_method": "${payment_method_daniel:id}",
-                "trial_period_days": 30,
-                "coupon": "${coupon_10_off:id}"
-            }
-        },
-        {
-            "name": "subscription_daniel_talkstudio",
-            "path": "/v1/subscriptions",
-            "method": "post",
-            "params": {
-                "customer": "${customer_daniel:id}",
-                "items": [
-                    {
-                        "price": "${price_6months_talkstudio:id}"
-                    }
-                ],
-                "default_payment_method": "${payment_method_daniel:id}",
-                "cancel_at_period_end": true
-            }
-        },
-        {
-            "name": "subscription_daniel_videoeditor",
-            "path": "/v1/subscriptions",
-            "method": "post",
-            "params": {
-                "customer": "${customer_daniel:id}",
-                "items": [
-                    {
-                        "price": "${price_3months_videoeditor:id}"
-                    }
-                ],
-                "default_payment_method": "${payment_method_daniel:id}",
-                "trial_period_days": 60
-            }
-        },
-        {
-            "name": "subscription_mayra_crossclip",
-            "path": "/v1/subscriptions",
-            "method": "post",
-            "params": {
-                "customer": "${customer_mayra:id}",
-                "items": [
-                    {
-                        "price": "${price_monthly_crossclip:id}"
-                    }
-                ],
-                "default_payment_method": "${payment_method_mayra:id}",
+                "default_payment_method": "${payment_method_diego:id}",
                 "coupon": "${coupon_5_off_3_months:id}",
                 "currency": "eur"
             }
         },
         {
-            "name": "subscription_mayra_talkstudio",
+            "name": "subscription_diego_talkstudio",
             "path": "/v1/subscriptions",
             "method": "post",
             "params": {
-                "customer": "${customer_mayra:id}",
+                "customer": "${customer_diego:id}",
                 "items": [
                     {
                         "price": "${price_6months_talkstudio:id}"
                     }
                 ],
-                "default_payment_method": "${payment_method_mayra:id}",
+                "default_payment_method": "${payment_method_diego:id}",
                 "trial_period_days": 90,
                 "currency": "eur"
             }
         },
         {
-            "name": "subscription_mayra_videoeditor",
+            "name": "subscription_diego_videoeditor",
             "path": "/v1/subscriptions",
             "method": "post",
             "params": {
-                "customer": "${customer_mayra:id}",
+                "customer": "${customer_diego:id}",
                 "items": [
                     {
                         "price": "${price_3months_videoeditor:id}"
                     }
                 ],
-                "default_payment_method": "${payment_method_mayra:id}",
+                "default_payment_method": "${payment_method_diego:id}",
                 "cancel_at_period_end": true,
                 "currency": "eur"
             }
@@ -284,7 +245,7 @@
                 "customer": "${customer_santiago:id}",
                 "items": [
                     {
-                        "price": "${price_monthly_crossclip:id}"
+                        "price": "${price_monthly_crossclip_basic:id}"
                     }
                 ],
                 "default_payment_method": "${payment_method_santiago:id}",

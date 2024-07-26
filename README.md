@@ -10,7 +10,14 @@ You will be assessing the estimated revenue for 3 different subscription product
 
 ## Requirements
 - Return a table for each product that lists out a subscription per row.
-- The columns should be the following: customer email, product name, ...months 1-12, life time value for subscription. The final row should contain usd totals for each month.
+- The columns should be the following: customer email, product name, ...months 1-12, lifetime value for subscription. The final row should contain usd totals for each month.
+- Using the Stripe API, create a new customer and subscribe them to the following:
+  - Price: `${price_monthly_crossclip_basic:id}`
+  - Coupon: `${coupon_5_off_3_months:id}`
+  - Trial: 30 days
+  - Currency: `gbp`
+- For your created subscription, during the 5th month perform a mid-cycle upgrade with proration on the 15th to the following:
+    - Price: `${price_monthly_crossclip_premium:id}`
 - **You can display these tables via HTML or command line output.**
 
 | Customer Email       | Product Name | {endOfMonth date} 1 | {endOfMonth} 2 | {endOfMonth} 3 | {endOfMonth} 4 | {endOfMonth} 5 | {endOfMonth} 6 | {endOfMonth} 7 | {endOfMonth} 8 | {endOfMonth} 9 | {endOfMonth} 10 | {endOfMonth} 11 | {endOfMonth} 12 | Life Time Value |
