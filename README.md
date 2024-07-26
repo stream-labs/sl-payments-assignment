@@ -68,6 +68,7 @@ Stripe Concepts:
 - [Stripe API - Customers, Subscriptions, Products, Prices, and Coupons](https://docs.stripe.com/api?lang=php)
 
 ## Getting Started
+- Fork this repository
 - We've included a docker setup for you to get started though it's not required.
   - make up
   - make composer-install
