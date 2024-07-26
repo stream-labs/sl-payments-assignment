@@ -25,3 +25,7 @@ stripe-login:
 
 bash:
 	@$(DOCKER_COMPOSE) exec app /bin/bash
+
+# Prevent make from interpreting the arguments as targets
+%:
+	@:
