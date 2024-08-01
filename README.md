@@ -75,6 +75,7 @@ Stripe Concepts:
   - get the app going with `vendor/bin/sail up -d`
   - run `vendor/bin/sail key:generate`
   - visit `localhost` in your browser to see the app running
+  - includes stripe cli 
 - Create a new stripe account
 - Use the stripe CLI to login and authorize to newly created account
 - Create a [stripe test clock](https://dashboard.stripe.com/test/billing/subscriptions/test-clocks) to simulate time
