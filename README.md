@@ -69,7 +69,7 @@ Stripe Concepts:
 - [Stripe API - Customers, Subscriptions, Products, Prices, and Coupons](https://docs.stripe.com/api?lang=php)
 
 ## Getting Started
-- Laravel Sail is used for this project. You can find the documentation [here](https://laravel.com/docs/11.x/sail)
+- (Optional) Laravel Sail can be used for this project. You can find the documentation [here](https://laravel.com/docs/11.x/sail)
   - copy .env.example to .env
   - install composer dependencies with `docker run --rm --interactive --tty --name tmp-composer-install --volume $PWD:/app composer install --ignore-platform-reqs --no-scripts`
   - get the app going with `vendor/bin/sail up -d`
