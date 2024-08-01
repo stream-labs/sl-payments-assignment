@@ -4,9 +4,9 @@
 Thank you for choosing to invest your time in this assignment.  We recognize it’s difficult to find the time to complete a coding assignment, and we value your time and investment in this process with us.
 # Streamlabs Senior Payments Assignment
 
-You've been tasked with creating an analysis for how subscriptions behave over the course of a year and the expected revenue from those subscriptions. 
+You've been tasked with creating an analysis for how subscriptions behave over the course of a year and the expected revenue from those subscriptions.
 
-You will be assessing the estimated revenue for 3 different subscription products. You've been provided seed data for 3 different products, 2 existing customers and their subscriptions. 
+You will be assessing the estimated revenue for 3 different subscription products.
 
 ## Requirements
 - Return a table for each product that lists out a subscription per row.
@@ -17,7 +17,7 @@ You will be assessing the estimated revenue for 3 different subscription product
   - Trial: 30 days
   - Currency: `gbp`
 - For your created subscription, during the 5th month perform a mid-cycle upgrade with proration on the 15th to the following:
-    - Price: `${price_monthly_crossclip_premium:id}`
+  - Price: `${price_monthly_crossclip_premium:id}`
 - **You can display these tables via HTML or command line output.**
 
 | Customer Email       | Product Name | {endOfMonth date} 1 | {endOfMonth} 2 | {endOfMonth} 3 | {endOfMonth} 4 | {endOfMonth} 5 | {endOfMonth} 6 | {endOfMonth} 7 | {endOfMonth} 8 | {endOfMonth} 9 | {endOfMonth} 10 | {endOfMonth} 11 | {endOfMonth} 12 | Life Time Value |
@@ -51,7 +51,7 @@ We are NOT
 - testing for your ability to suss out edge cases, or
 - trying to trick you.
 
-Keep it simple! Please do NOT implement extra features that we don't ask for.   
+Keep it simple! Please do NOT implement extra features that we don't ask for.
 
 ## Stack
 At Streamlabs we mainly make use of PHP, Laravel, Vue, React, TypeScript, MySQL. Please make use of Laravel & PHP for this assignment so we know you are familiar with our backend stack.
@@ -68,16 +68,17 @@ Stripe Concepts:
 - [Stripe API - Customers, Subscriptions, Products, Prices, and Coupons](https://docs.stripe.com/api?lang=php)
 
 ## Getting Started
-- Fork this repository
-- We've included a docker setup for you to get started though it's not required.
-  - make up
-  - make composer-install
-  - make stripe-login
+- Laravel Sail is used for this project. You can find the documentation [here](https://laravel.com/docs/11.x/sail)
+  - copy .env.example to .env
+  - install composer dependencies with `docker run --rm --interactive --tty --name tmp-composer-install --volume $PWD:/app composer install --ignore-platform-reqs --no-scripts`
+  - get the app going with `vendor/bin/sail up -d`
+  - run `vendor/bin/sail key:generate`
+  - visit `localhost` in your browser to see the app running
 - Create a new stripe account
 - Use the stripe CLI to login and authorize to newly created account
 - Create a [stripe test clock](https://dashboard.stripe.com/test/billing/subscriptions/test-clocks) to simulate time
 - Once you've added your test clock you can use stripe cli to run your fixture. Fixture is located at fixtures/seed.json
-  - The fixture will populate data into your stripe account
+  - The fixture will populate customer and subscription data into your stripe account
 
 > **Warning:** You'll likely have to create multiple test clocks and seed data multiple times. This is normal and expected. While all data will be constrained by each test clock you can delete all stripe data by going to the [Stripe Developers](https://dashboard.stripe.com/test/developers) page and selecting "Delete all test data" option at the bottom of the page.
 
