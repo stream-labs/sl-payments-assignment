@@ -91,3 +91,11 @@ The code is to be published on a public github repository for our team to access
 
 - A screenshot of your final output
 - Instructions on how to run your code and any tests
+
+## Jeffrey Moen Instructions
+- `vendor/bin/sail artisan key:generate`
+- `brew install stripe/stripe-cli/stripe`
+- `stripe login`
+- Add the test clock to the .env `STRIPE_TEST_CLOCK=clock_1PjBnIDIyydFQzXcnaGaW0P9`
+- `stripe fixtures fixtures/seed.json`
+- `vendor/bin/sail artisan make:model ProductSubscriptions -a`
