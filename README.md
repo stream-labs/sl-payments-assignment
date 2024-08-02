@@ -99,3 +99,4 @@ The code is to be published on a public github repository for our team to access
 - Add the test clock to the .env `STRIPE_TEST_CLOCK=clock_1PjBnIDIyydFQzXcnaGaW0P9`
 - `stripe fixtures fixtures/seed.json`
 - `vendor/bin/sail artisan make:model ProductSubscriptions -a`
+- Add the Stripe secret key to the .env file as `STRIPE_SECRET_KEY`, so we can connect to the Stripe SDK
