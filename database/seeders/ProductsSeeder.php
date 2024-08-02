@@ -33,7 +33,7 @@ class ProductsSeeder extends Seeder
     /**
      * @throws ApiErrorException
      */
-    public function getStripeProducts(): array {
+    private function getStripeProducts(): array {
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
         $products = $stripe->products->all();
 

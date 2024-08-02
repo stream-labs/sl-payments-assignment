@@ -34,7 +34,7 @@ class CustomersSeeder extends Seeder
     /**
      * @throws ApiErrorException
      */
-    public function getStripeCustomers(): array {
+    private function getStripeCustomers(): array {
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
         $customers = $stripe->customers->all(['test_clock' => env('STRIPE_TEST_CLOCK')]);
 
