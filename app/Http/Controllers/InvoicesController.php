@@ -75,15 +75,6 @@ class InvoicesController
      */
     public function getInvoiceDataByProduct(): array
     {
-//        $productInvoices = DB::table('invoices')
-//            ->select(DB::raw('customer_email, product_name, DATE_FORMAT(invoice_date, "%Y-%m") AS invoice_month, SUM(total) AS total_amount, currency'))
-//            ->groupBy('customer_email', 'product_name', DB::raw('DATE_FORMAT(invoice_date, "%Y-%m")'), 'currency')
-//            ->where('product_name', $product->name)
-//            ->orderBy('customer_email')
-//            ->orderBy('product_name')
-//            ->orderBy(DB::raw('DATE_FORMAT(invoice_date, "%Y-%m")'))
-//            ->get();
-
         // I tried different methods of flattening the data by month, but using case statements was the most reliable
         $flattenedInvoices = DB::table('invoices')
             ->select(
@@ -99,6 +90,7 @@ class InvoicesController
                 DB::raw("SUM(CASE WHEN DATE_FORMAT(invoice_date, '%Y-%m') = '2025-04' THEN total ELSE 0 END) AS `2025-04`"),
                 DB::raw("SUM(CASE WHEN DATE_FORMAT(invoice_date, '%Y-%m') = '2025-05' THEN total ELSE 0 END) AS `2025-05`"),
                 DB::raw("SUM(CASE WHEN DATE_FORMAT(invoice_date, '%Y-%m') = '2025-06' THEN total ELSE 0 END) AS `2025-06`"),
+                DB::raw("SUM(CASE WHEN DATE_FORMAT(invoice_date, '%Y-%m') = '2025-07' THEN total ELSE 0 END) AS `2025-07`"),
                 DB::raw("SUM(total) as 'lifeTimeValue'")
             )
             ->groupBy('customer_email', 'product_name', 'currency')
@@ -127,6 +119,7 @@ class InvoicesController
                 '2025-04' => $invoicesByProduct->sum('2025-04'),
                 '2025-05' => $invoicesByProduct->sum('2025-05'),
                 '2025-06' => $invoicesByProduct->sum('2025-06'),
+                '2025-07' => $invoicesByProduct->sum('2025-07'),
                 'lifeTimeValue' => $invoicesByProduct->sum('lifeTimeValue')
             ];
 
