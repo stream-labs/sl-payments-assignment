@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreOrdersRequest;
-use App\Http\Requests\UpdateOrdersRequest;
-use App\Orders;
+use App\Http\Requests\StoreInvoicesRequest;
+use App\Http\Requests\UpdateInvoicesRequest;
+use App\Invoices;
 
-class OrdersController
+class InvoicesController
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class OrdersController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrdersRequest $request)
+    public function store(StoreInvoicesRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class OrdersController
     /**
      * Display the specified resource.
      */
-    public function show(Orders $orders)
+    public function show(Invoices $invoices)
     {
         //
     }
@@ -43,7 +43,7 @@ class OrdersController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Orders $orders)
+    public function edit(Invoices $invoices)
     {
         //
     }
@@ -51,7 +51,7 @@ class OrdersController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrdersRequest $request, Orders $orders)
+    public function update(UpdateInvoicesRequest $request, Invoices $invoices)
     {
         //
     }
@@ -59,7 +59,7 @@ class OrdersController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Orders $orders)
+    public function destroy(Invoices $invoices)
     {
         //
     }
