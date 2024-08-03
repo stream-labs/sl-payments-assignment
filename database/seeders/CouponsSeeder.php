@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
 
-class CustomersSeeder extends Seeder
+class CouponsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,16 +17,15 @@ class CustomersSeeder extends Seeder
     public function run(): void
     {
         // Clear table before re-seeding it
-        DB::table('customers')->truncate();
+        DB::table('coupons')->truncate();
 
-        $customers = $this->getStripeCustomers();
+        $coupons = $this->getStripeCoupons();
 
-        foreach ($customers as $customer) {
-            DB::table('customers')->insert([
-                'name' => $customer['name'],
-                'email' => $customer['email'],
+        foreach ($coupons as $coupon) {
+            DB::table('coupons')->insert([
+                'name' => $coupon['name'],
                 'payment_service' => 'Stripe',
-                'payment_service_customer_id' => $customer['id'],
+                'payment_service_coupon_id' => $coupon['id'],
             ]);
         }
     }
@@ -34,11 +33,11 @@ class CustomersSeeder extends Seeder
     /**
      * @throws ApiErrorException
      */
-    private function getStripeCustomers(): array
+    private function getStripeCoupons(): array
     {
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-        $customers = $stripe->customers->all(['test_clock' => env('STRIPE_TEST_CLOCK')]);
+        $coupons = $stripe->coupons->all();
 
-        return $customers->data ?? [];
+        return $coupons->data ?? [];
     }
 }

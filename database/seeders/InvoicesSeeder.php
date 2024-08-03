@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Customers;
 use App\Products;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Stripe\Exception\ApiErrorException;
@@ -12,8 +13,8 @@ use Stripe\StripeClient;
 
 class InvoicesSeeder extends Seeder
 {
-    private $products = [];
-    private $customers = [];
+    private Collection $products;
+    private Collection $customers;
 
     /**
      * Run the database seeds.
@@ -22,6 +23,9 @@ class InvoicesSeeder extends Seeder
      */
     public function run(): void
     {
+        // Clear table before re-seeding it
+        DB::table('invoices')->truncate();
+
         $this->products = Products::all();
         $this->customers = Customers::all();
         $invoices = $this->getStripeInvoices();
