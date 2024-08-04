@@ -2,71 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInvoicesRequest;
-use App\Http\Requests\UpdateInvoicesRequest;
-use App\Invoices;
 use App\Products;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class InvoicesController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreInvoicesRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Invoices $invoices)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Invoices $invoices)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateInvoicesRequest $request, Invoices $invoices)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Invoices $invoices)
-    {
-        //
-    }
-
     /**
      * I experimented with different methods of flattening the data, so that each row contained the totals for every
      * month, but ultimately flattening the data in SQL worked the best. The downside is that it relies on
@@ -76,6 +17,7 @@ class InvoicesController
      */
     public function getInvoiceDataByProduct(): array
     {
+        // Get one day under a year, so we don't pull in the results for billing cycle of the second year
         $nextYear = Carbon::today()->addDays(364)->format('Y-m-d') . ' 00:00:00';
         // I tried different methods of flattening the data by month, but using case statements was the most reliable
         $flattenedInvoices = DB::table('invoices')

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Customers;
-use App\Http\Requests\StoreSubscriptionsRequest;
-use App\Http\Requests\UpdateSubscriptionsRequest;
 use App\Prices;
 use App\Subscriptions;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
+use Stripe\Subscription;
 
 class SubscriptionsController
 {
@@ -17,62 +16,6 @@ class SubscriptionsController
     public function __construct()
     {
         $this->stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSubscriptionsRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Subscriptions $subscriptions)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subscriptions $subscriptions)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSubscriptionsRequest $request, Subscriptions $subscriptions)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Subscriptions $subscriptions)
-    {
-        //
     }
 
     /**
@@ -95,5 +38,51 @@ class SubscriptionsController
         $subscriptionRecord->save();
 
         return $subscriptionRecord;
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    public function updateTestSubscription(): Subscription
+    {
+        // Find customer where email is test.testington@test.co.uk & get their customer.payment_service_provider_id
+        $testCustomer = Customers::findCustomerByEmail('test.testington@test.co.uk');
+
+        // Find their Subscription by subscription.payment_service_customer_id & get subscription.payment_service_subscription_id
+        $testSubscription = Subscriptions::findSubscriptionByPaymentServiceCustomerId($testCustomer->payment_service_customer_id);
+
+        // Make a request to Stripe to get their subscription record. I need this, so I can get the subscription_item_id
+        $stripeSubscription = $this->lookupStripeSubscription($testSubscription->payment_service_subscription_id);
+        $stripeItemId = $stripeSubscription['items']->data[0]['id'];
+
+        // Get the price.payment_service_price_id where the name is "monthly_crossclip_premium"
+        $upgradePrice = Prices::findPriceByName('monthly_crossclip_premium');
+        $stripeUpgradePriceId = $upgradePrice->payment_service_price_id;
+
+        // Make a request to update their subscription
+        try {
+            $updatedSubscription = $this->stripe->subscriptions->update(
+                $testSubscription->payment_service_subscription_id,
+                [
+                    'proration_behavior' => 'create_prorations',
+                    'items' => [
+                        [
+                            'id' => $stripeItemId,
+                            'deleted' => true,
+                        ],
+                        ['price' => $stripeUpgradePriceId],
+                    ],
+                ]
+            );
+        } catch (ApiErrorException $e) {
+            var_dump($e->getMessage());
+        }
+
+        return $updatedSubscription;
+    }
+
+    public function lookupStripeSubscription(string $paymentServiceSubscriptionId): Subscription
+    {
+        return $this->stripe->subscriptions->retrieve($paymentServiceSubscriptionId);
     }
 }
