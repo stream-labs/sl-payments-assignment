@@ -38,7 +38,7 @@ class SubscriptionsSeeder extends Seeder
     private function getStripeSubscriptions(): array
     {
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-        $subscriptions = $stripe->subscriptions->all(['test_clock' => env('STRIPE_TEST_CLOCK')]);
+        $subscriptions = $stripe->subscriptions->all(['test_clock' => env('STRIPE_TEST_CLOCK'), 'status' => 'all']);
 
         return $subscriptions->data ?? [];
     }

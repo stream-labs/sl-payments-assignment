@@ -39,6 +39,7 @@ class CustomersSeeder extends Seeder
     private function getStripeCustomers(): array
     {
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
+        // Note: This does not retrieve deleted customers.
         $customers = $stripe->customers->all(['test_clock' => env('STRIPE_TEST_CLOCK')]);
 
         return $customers->data ?? [];

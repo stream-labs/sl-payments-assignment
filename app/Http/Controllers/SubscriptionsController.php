@@ -69,10 +69,16 @@ class SubscriptionsController
                     'items' => [
                         [
                             'id' => $stripeItemId,
-                            'deleted' => true,
+                            'price' => $stripeUpgradePriceId
                         ],
-                        ['price' => $stripeUpgradePriceId],
                     ],
+//                    'items' => [
+//                        [
+//                            'id' => $stripeItemId,
+//                            'deleted' => true,
+//                        ],
+//                        ['price' => $stripeUpgradePriceId],
+//                    ],
                 ]
             );
         } catch (ApiErrorException $e) {

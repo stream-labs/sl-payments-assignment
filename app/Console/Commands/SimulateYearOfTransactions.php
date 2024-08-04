@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands;
 
-
-use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\SubscriptionsController;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -36,6 +34,7 @@ class SimulateYearOfTransactions extends Command
 
     /**
      * Execute the console command.
+     * @throws ApiErrorException
      */
     public function handle(): void
     {
@@ -44,91 +43,42 @@ class SimulateYearOfTransactions extends Command
         $currentDateTime = Carbon::yesterday()->startOfDay();
         echo $currentDateTime . "/n";
 
+        for ($i = 1; $i <= 12; $i++) {
+            if ($i == 6) {
+                // Update the test user's subscription before advancing to the next month
+                $subscriptionController = new SubscriptionsController();
+                $subscriptionController->updateTestSubscription();
+            }
+
+            // Check for 5th month
+            if ($i == 5) {
+                // Advance to the 15th of that month
+                $fifteenth = $currentDateTime->addMonths($i)->startOfMonth()->setDay(15)->timestamp;
+                $this->advanceTime($fifteenth);
+            } else {
+                // Advance 1-month at a time
+                $nextMonth = $currentDateTime->addMonths($i)->timestamp;
+                $this->advanceTime($nextMonth);
+                sleep(env('STRIPE_ADVANCE_CLOCK_SLEEP_TIME'));
+            }
+        }
+
        $subscriptionController = new SubscriptionsController();
        $subscriptionController->updateTestSubscription();
-
-        // Note: I was going to originally create a customer and subscription, but opted to use the fixture method,
-        // so that I don't send test payment info to the payment method API
-//        $customerController = new CustomersController();
-//        $newCustomer = $customerController->createTestStripeCustomer();
-
-//        $subscriptionController = new SubscriptionsController();
-//        $newSubscription = $subscriptionController->createTestStripeSubscription($newCustomer);
-
-        // There is a race condition here, where the next request is sent before the previous one has finished processing
-        // Advance 2-months (2 total)
-//        $twoMonthsFromNow = $currentDateTime->addMonths(2)->timestamp;
-//        $this->advanceTime($twoMonthsFromNow);
-//        sleep(60);
-//
-//        // Advance 2-months (4 total)
-//        $fourMonthsFromNow = $currentDateTime->addMonths(4)->timestamp;
-//        $this->advanceTime($fourMonthsFromNow);
-//        sleep(60);
-//
-//        // Advance 2-months (6 total)
-//        $sixMonthsFromNow = $currentDateTime->addMonths(6)->timestamp;
-//        $this->advanceTime($sixMonthsFromNow);
-//        sleep(60);
-//
-//        // Advance 2-months (8 total)
-//        $eightMonthsFromNow = $currentDateTime->addMonths(8)->timestamp;
-//        $this->advanceTime($eightMonthsFromNow);
-//        sleep(60);
-//
-//        // Advance 2-months (10 total)
-//        $tenMonthsFromNow = $currentDateTime->addMonths(10)->timestamp;
-//        $this->advanceTime($tenMonthsFromNow);
-//        sleep(60);
-//
-//        // Advance 2-months (12 total)
-//        $twelveMonthsFromNow = $currentDateTime->addMonths(11)->timestamp;
-//        $this->advanceTime($twelveMonthsFromNow);
-//        sleep(60);
-
-//        for ($i = 1; $i <= 52; $i++) {
-//            // Advance 1-month at a time
-//            $nextMonth = $currentDateTime->addWeeks($i)->timestamp;
-//            echo $nextMonth . "\n\n";
-//            $this->advanceTime($nextMonth);
-//            sleep(env('STRIPE_ADVANCE_CLOCK_SLEEP_TIME'));
-//        }
-
-        // Advance 1.5-months (5.5 total)
-
-        // Upgrade Subscription
-
-        // Advance 2-months (7.5 total)
-
-        // Advance 2-months (9.5 total)
-
-        // Advance 2-months (11.5 total)
-
-        // Advance to 1-year from the current day (12 total)
-
-        // Re-run DB
-
-//        var_dump($newCustomer);
-//        $test = Customers::first();
-//        var_dump($test);
-//        $customer = Customers:;
-//        var_dump($customer);x
-//        $customer = $this->createStripeTestCustomer();
-//        $subscription = $this->createStipeTestSubscription($customer);
-
-        // Example advancing 2 months on the CLU
-        // stripe test_helpers test_clocks advance clock_1Pjpm6DIyydFQzXc8tcFJ1IU --frozen-time 1727991961
     }
 
     private function advanceTime(int $timestamp): void
     {
         try {
-            $test = $this->stripe->testHelpers->testClocks->advance(env('STRIPE_TEST_CLOCK'), ['frozen_time' => $timestamp]);
-            var_dump($test);
+            $advanceTime = $this->stripe->testHelpers->testClocks->advance(env('STRIPE_TEST_CLOCK'), ['frozen_time' => $timestamp]);
+            var_dump($advanceTime);
         } catch (ApiErrorException $exception) {
             var_dump($exception->getMessage());
+            // Wait to allow the previous request to finish before retrying
+            sleep(env('STRIPE_ADVANCE_CLOCK_SLEEP_TIME'));
+            $advanceTime = $this->stripe->testHelpers->testClocks->advance(env('STRIPE_TEST_CLOCK'), ['frozen_time' => $timestamp]);
+            var_dump($advanceTime);
             return;
         }
-
     }
 }
