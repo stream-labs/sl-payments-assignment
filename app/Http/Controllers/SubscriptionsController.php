@@ -65,20 +65,12 @@ class SubscriptionsController
                 $testSubscription->payment_service_subscription_id,
                 [
                     'proration_behavior' => 'create_prorations',
-                    // Try changing this to updating the item instead
                     'items' => [
                         [
                             'id' => $stripeItemId,
                             'price' => $stripeUpgradePriceId
                         ],
                     ],
-//                    'items' => [
-//                        [
-//                            'id' => $stripeItemId,
-//                            'deleted' => true,
-//                        ],
-//                        ['price' => $stripeUpgradePriceId],
-//                    ],
                 ]
             );
         } catch (ApiErrorException $e) {

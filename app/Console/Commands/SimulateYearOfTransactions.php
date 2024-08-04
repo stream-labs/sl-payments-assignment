@@ -67,6 +67,14 @@ class SimulateYearOfTransactions extends Command
        $subscriptionController->updateTestSubscription();
     }
 
+    /**
+     * Through manual testing, I have found that even adding 2-minutes of time between requests, you will still
+     * eventually hit the race condition. I highly recommend advancing the test clock through Stripe's dashboard
+     *
+     * @param int $timestamp
+     * @return void
+     * @throws ApiErrorException
+     */
     private function advanceTime(int $timestamp): void
     {
         try {
