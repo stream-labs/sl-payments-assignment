@@ -19,7 +19,8 @@ class InvoicesController
     {
         // Get one day under a year, so we don't pull in the results for billing cycle of the second year
         $nextYear = Carbon::today()->addDays(364)->format('Y-m-d') . ' 00:00:00';
-        // I tried different methods of flattening the data by month, but using case statements was the most reliable
+        // I tried different methods of flattening the data by month, but using case statements in SQL was the
+        // most reliable. I opted to go for the query builder over eloquent due to the complexity of the query
         $flattenedInvoices = DB::table('invoices')
             ->select(
                 DB::raw('customer_email, product_name, currency'),

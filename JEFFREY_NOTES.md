@@ -33,7 +33,7 @@ I have been working on a command that simulates a year's worth of transactions o
 6. Warning: This command will take several hours to run & it is not the recommended way to proceed
    1. `vendor/bin/sail artisan app:simulate-year-of-transactions`
       1. This will make 52-requests to Stripe, each simulating 1-week of transactions
-      2. There is a configurable sleep variable in the env that should be set to at least 120-seconds
+      2. There is a configurable sleep variable in the env that should be set to at least 180-seconds
       3. It will send out a request to update the user I added (Test Testington's) subscription for the 15th day of the 5th month
       4. Upon completion run `vendor/bin/sail artisan db:seed` to re-seed the DB with all transaction data from Stripe.
 8. To work around the performance issues, I recommend running the Test Clock simulations manually.
@@ -47,3 +47,8 @@ I have been working on a command that simulates a year's worth of transactions o
    8. Simulate ahead 0.5 months to 1-year from the original date (1-year total)
 9. Run `vendor/bin/sail artisan db:seed` to re-seed the DB with all transaction data
 10. View the results with a table per product at http://localhost/
+
+## Results
+
+
+![Screenshot 2024-08-04 at 12.40.39 PM.png](..%2F..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fkm%2Fgqfzvy3d4zj3k9q0mcg8cft80000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_c57Gzv%2FScreenshot%202024-08-04%20at%2012.40.39%20PM.png)

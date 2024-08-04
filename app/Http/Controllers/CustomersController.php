@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Customers;
-use App\Http\Requests\StoreCustomersRequest;
-use App\Http\Requests\UpdateCustomersRequest;
 use Carbon\Carbon;
 use Stripe\Exception\ApiErrorException;
 use Stripe\PaymentMethod;

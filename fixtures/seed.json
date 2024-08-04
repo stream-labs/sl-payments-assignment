@@ -37,7 +37,7 @@
             }
         },
         {
-            "name": "customer_test",
+            "name": "customer_test_user",
             "path": "/v1/customers",
             "method": "post",
             "params": {
@@ -47,11 +47,11 @@
             }
         },
         {
-            "name": "payment_method_test",
+            "name": "payment_method_test_user",
             "path": "/v1/payment_methods/pm_card_visa_debit/attach",
             "method": "post",
             "params": {
-                "customer": "${customer_test:id}"
+                "customer": "${customer_test_user:id}"
             }
         },
         {
@@ -302,17 +302,17 @@
             }
         },
         {
-            "name": "subscription_test_crossclip",
+            "name": "subscription_test_user_crossclip",
             "path": "/v1/subscriptions",
             "method": "post",
             "params": {
-                "customer": "${customer_test:id}",
+                "customer": "${customer_test_user:id}",
                 "items": [
                     {
                         "price": "${price_monthly_crossclip_basic:id}"
                     }
                 ],
-                "default_payment_method": "${payment_method_test:id}",
+                "default_payment_method": "${payment_method_test_user:id}",
                 "coupon": "${coupon_5_off_3_months:id}",
                 "trial_period_days": 30,
                 "currency": "gbp"
