@@ -100,3 +100,15 @@ The code is to be published on a public github repository for our team to access
 - `stripe fixtures fixtures/seed.json`
 - `vendor/bin/sail artisan make:model ProductSubscriptions -a`
 - Add the Stripe secret key to the .env file as `STRIPE_SECRET_KEY`, so we can connect to the Stripe SDK
+
+1. Run Migrations
+   2. `vendor/bin/sail artisan migrate`
+3. Run Fixtures
+   4. `stripe fixtures fixtures/seed.json`
+5. Seed DB data
+   6. `vendor/bin/sail db:seed`
+5. Advanced Time Clock
+   6. `sl-payments-assignment % stripe test_helpers test_clocks advance clock_1Pjpm6DIyydFQzXc8tcFJ1IU --frozen-time 1754204400`
+7. 
+
+sl-payments-assignment % stripe test_helpers test_clocks advance clock_1Pjpm6DIyydFQzXc8tcFJ1IU --frozen-time 1754204400

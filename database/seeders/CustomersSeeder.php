@@ -27,6 +27,8 @@ class CustomersSeeder extends Seeder
                 'email' => $customer['email'],
                 'payment_service' => 'Stripe',
                 'payment_service_customer_id' => $customer['id'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

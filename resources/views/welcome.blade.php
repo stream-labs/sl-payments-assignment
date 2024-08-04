@@ -91,5 +91,9 @@
         margin-bottom: 40px;
     }
 
+    div {
+        font-family: 'DM S', sans-serif
+    }
+
     tr:nth-child(even) {background-color: #f2f2f2;}
 </style>

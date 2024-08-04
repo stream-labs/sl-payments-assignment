@@ -6,6 +6,7 @@ use App\Http\Requests\StoreInvoicesRequest;
 use App\Http\Requests\UpdateInvoicesRequest;
 use App\Invoices;
 use App\Products;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class InvoicesController
@@ -75,6 +76,7 @@ class InvoicesController
      */
     public function getInvoiceDataByProduct(): array
     {
+        $nextYear = Carbon::today()->addDays(364)->format('Y-m-d') . ' 00:00:00';
         // I tried different methods of flattening the data by month, but using case statements was the most reliable
         $flattenedInvoices = DB::table('invoices')
             ->select(
@@ -93,6 +95,7 @@ class InvoicesController
                 DB::raw("SUM(CASE WHEN DATE_FORMAT(invoice_date, '%Y-%m') = '2025-07' THEN total ELSE 0 END) AS `2025-07`"),
                 DB::raw("SUM(total) as 'lifeTimeValue'")
             )
+            ->where('invoice_date', '<', $nextYear)
             ->groupBy('customer_email', 'product_name', 'currency')
             ->orderBy('customer_email')
             ->orderBy('product_name')

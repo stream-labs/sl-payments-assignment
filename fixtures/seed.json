@@ -37,6 +37,24 @@
             }
         },
         {
+            "name": "customer_test",
+            "path": "/v1/customers",
+            "method": "post",
+            "params": {
+                "test_clock": "${.env:STRIPE_TEST_CLOCK}",
+                "name": "Test Testington",
+                "email": "test.testington@test.co.uk"
+            }
+        },
+        {
+            "name": "payment_method_test",
+            "path": "/v1/payment_methods/pm_card_visa_debit/attach",
+            "method": "post",
+            "params": {
+                "customer": "${customer_test:id}"
+            }
+        },
+        {
             "name": "coupon_10_off",
             "path": "/v1/coupons",
             "method": "post",
@@ -280,6 +298,23 @@
                     }
                 ],
                 "default_payment_method": "${payment_method_santiago:id}",
+                "currency": "gbp"
+            }
+        },
+        {
+            "name": "subscription_test_crossclip",
+            "path": "/v1/subscriptions",
+            "method": "post",
+            "params": {
+                "customer": "${customer_test:id}",
+                "items": [
+                    {
+                        "price": "${price_monthly_crossclip_basic:id}"
+                    }
+                ],
+                "default_payment_method": "${payment_method_test:id}",
+                "coupon": "${coupon_5_off_3_months:id}",
+                "trial_period_days": 30,
                 "currency": "gbp"
             }
         }

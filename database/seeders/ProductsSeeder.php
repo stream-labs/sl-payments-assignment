@@ -26,6 +26,8 @@ class ProductsSeeder extends Seeder
                 'name' => $product['name'],
                 'payment_service' => 'Stripe',
                 'payment_service_product_id' => $product['id'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

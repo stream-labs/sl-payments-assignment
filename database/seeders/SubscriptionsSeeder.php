@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
 
-class PricesSeeder extends Seeder
+class SubscriptionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,15 +17,15 @@ class PricesSeeder extends Seeder
     public function run(): void
     {
         // Clear table before re-seeding it
-        DB::table('prices')->truncate();
+        DB::table('subscriptions')->truncate();
 
-        $prices = $this->getStripePrices();
+        $subscriptions = $this->getStripeSubscriptions();
 
-        foreach ($prices as $price) {
-            DB::table('prices')->insert([
-               'name' => $price['lookup_key'] ?? 'N/A',
+        foreach ($subscriptions as $subscription) {
+            DB::table('subscriptions')->insert([
                'payment_service' => 'Stripe',
-               'payment_service_price_id' => $price['id'],
+               'payment_service_subscription_id' => $subscription->id,
+               'payment_service_customer_id' => $subscription->customer,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
@@ -35,11 +35,11 @@ class PricesSeeder extends Seeder
     /**
      * @throws ApiErrorException
      */
-    private function getStripePrices(): array
+    private function getStripeSubscriptions(): array
     {
         $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
-        $prices = $stripe->prices->all();
+        $subscriptions = $stripe->subscriptions->all(['test_clock' => env('STRIPE_TEST_CLOCK')]);
 
-        return $prices->data ?? [];
+        return $subscriptions->data ?? [];
     }
 }

@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             PricesSeeder::class,
             CouponsSeeder::class,
             CustomersSeeder::class,
-            InvoicesSeeder::class
+            InvoicesSeeder::class,
+            SubscriptionsSeeder::class
         ]);
     }
 }
