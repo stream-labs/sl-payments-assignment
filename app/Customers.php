@@ -11,7 +11,7 @@ class Customers extends Model
 
     protected $fillable = ['name', 'email', 'payment_service', 'payment_service_customer_id'];
 
-    public static function findCustomerByEmail($email): Customers
+    public static function findCustomerByEmail($email): ?Customers
     {
        return Customers::where('email', $email)->first();
     }

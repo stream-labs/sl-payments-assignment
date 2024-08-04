@@ -66,6 +66,23 @@ I have been working on a command that simulates a year's worth of transactions o
 
 ![Screenshot 2024-08-04 at 2.25.14 PM.png](public/Screenshot 2024-08-04 at 2.25.14 PM.png)
 
+## Testing
+
+Given the time constraints & exploratory nature of this project, I opted to focus my attention on demonstrating usage of Stripe's APIs, SDK, and fixture.
+
+However, I did decide to provide some example feature tests focused on the Models for you to use.
+
+### Steps to Run Testing
+
+1. Create a file called `.env.testing`, copy over contents of the `.env` and remove any credentials not needed for running tests
+2. In `.env.testing` set the application environment to testing `APP_ENV=testing`
+3. And set the DB to `DB_DATABASE=testing`. All other DB credentials can remain the same, since it will use a separate testing DB in the MySQL environment.
+4. Seed the testing DB by running: `vendor/bin/sail artisan migrate --env=testing`
+5. To run `phpunit` tests run, `vendor/bin/sail phpunit`
+6. When you run the test suite, you should see `OK (10 tests, 17 assertions)`
+
+I am interested in using test clocks more for testing. At a previous position, we had starting using test clocks, but QA was not on board, so I developed a different testing strategy based off the payloads from webhooks, to simulate the lifecycle of Stripe transactions. That method worked well, but setting up time clocks & running simulations is a much better way to test Stripe's behavior.
+
 ## Other Notes
 
 1. I had gone down the path of creating my test customer directly through Stripe's APIs to demonstrate API usage.
@@ -73,11 +90,6 @@ I have been working on a command that simulates a year's worth of transactions o
     2. I did keep the code for the API calls there and they all work.
     3. The issue was creating the payment method where Stripe does not want you want to send credit card numbers as part of a request.
         1. In practice, I would create the credit card on Stripe or using Stripe's payment form, but since my goal was to make this an automated process. It made more sense to use the fixture to create the payment method & by extension the test user using fixtures.
-2. Testing
-    1. Given the time constraints & exploratory nature of this project, I opted to shift my focus to demonstrating knowledge of Stripe by working with their APIs, SDK, & fixtures over writing test coverage.
-    2. For test coverage, I would set up unit test coverage to show that the methods behave as expected and integration tests to prove that the overall functionality worked.
-    3. I am interested in using time clocks more for testing. At a previous employer, we had starting using time clocks, but QA was not on board, so I developed a different testing strategy based off the payloads from webhooks, to simulate the lifecycle of Stripe transactions.
-        1. That method worked well, setting up time clocks & running simulations is a much better way to test Stripe's behavior.
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://cdn.streamlabs.com/static/imgs/identity/streamlabs-logo-thumb.png" alt="Streamlabs Kevin"></a></p>
 

@@ -17,7 +17,10 @@ class CustomersFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'email' => $this->faker->unique()->safeEmail(),
+            'name' => $this->faker->name(),
+            'payment_service' => 'Stripe',
+            'payment_service_customer_id' => 'cus_' .$this->faker->uuid()
         ];
     }
 }

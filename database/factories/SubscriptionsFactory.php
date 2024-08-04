@@ -17,7 +17,9 @@ class SubscriptionsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'payment_service' => 'Stripe',
+            'payment_service_subscription_id' => 'sub_' . $this->faker->uuid(),
+            'payment_service_customer_id' => 'cus_' . $this->faker->uuid(),
         ];
     }
 }

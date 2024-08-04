@@ -17,7 +17,9 @@ class PricesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'payment_service' => 'Stripe',
+            'payment_service_price_id' => 'price_' . $this->faker->uuid()
         ];
     }
 }
