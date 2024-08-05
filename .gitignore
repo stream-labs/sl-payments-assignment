@@ -21,3 +21,10 @@ yarn-error.log
 .editorconfig
 .gitattributes
 /stripe-data/*
+
+/caddy/pki
+/caddy/config
+/caddy/data
+/caddy/config/caddy
+/caddy/data/caddy
+/docker/data

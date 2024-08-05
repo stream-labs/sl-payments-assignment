@@ -1,5 +1,7 @@
 <?php
 
+use Stripe\StripeClient;
+
 if (!function_exists('writeNewEnvironmentFileWithClock')) {
     function writeNewEnvironmentFileWithClock($clockId): bool
     {
@@ -25,5 +27,15 @@ if (!function_exists('clockReplacementPattern')) {
         $escaped = preg_quote('='.env('STRIPE_TEST_CLOCK'), '/');
 
         return "/^STRIPE_TEST_CLOCK{$escaped}/m";
+    }
+}
+
+if(! function_exists('stripe')) {
+    function stripe(): StripeClient
+    {
+        /**
+         * @var StripeClient
+         */
+        return app(StripeClient::class);
     }
 }
